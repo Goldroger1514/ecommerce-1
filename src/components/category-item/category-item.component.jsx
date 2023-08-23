@@ -11,7 +11,7 @@ let CategoryItem = ({ category }) => {
             />
             <div key={category.id} className='category-body-container'>
                 <h2>{category.title.toUpperCase()}</h2>
-                <p>SHOP NOW</p>
+                <p>SHOP NOW, lesson-2</p>
             </div>
         </div>
     )
