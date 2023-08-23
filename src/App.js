@@ -5,7 +5,8 @@ let App = () => {
     {
       "id": 1,
       "title": "hats",
-      "imageUrl": "https://i.ibb.co/cvpntL1/hats.png"
+      "imageUrl": "https://i.ibb.co/cvpntL1/hats.png",
+      testing: 10
     },
     {
       "id": 2,
