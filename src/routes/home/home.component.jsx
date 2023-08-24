@@ -1,4 +1,5 @@
 import Directory from '../../components/directory/directory.component'
+import { Outlet } from 'react-router-dom'
 let Home = () => {
     let categories = [
         {
@@ -28,6 +29,14 @@ let Home = () => {
             "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
         }
     ]
-    return <Directory categories={categories} />
+    return (
+        <div>
+            <Outlet />
+            <Directory categories={categories} />
+        </div>
+    )
+    /**
+     * the <Outlet /> component is used to indicate the location where the nested routes should be rendered within their parent route's component.
+     */
 }
 export default Home
