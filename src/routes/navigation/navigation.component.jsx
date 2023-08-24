@@ -8,10 +8,16 @@ let Navigation = () => {
             <div className='navigation'>
                 <div className='logo' >
                     <Link className='logo-container' to='/' >
-                        <CrwnLogo className='logo' />
+                        <CrwnLogo />
                     </Link>
                 </div>
                 <div className='nav-links-container'>
+                    <Link className='nav-link' to='/shop' >
+                        SHOP
+                    </Link>
+                    <Link className='nav-link' to='/shop' >
+                        SHOP
+                    </Link>
                     <Link className='nav-link' to='/shop' >
                         SHOP
                     </Link>
