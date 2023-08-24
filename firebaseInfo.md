@@ -49,3 +49,5 @@
 # It's like okay you want to create this data, if you're authorized to do it , i'm going to send you back the appropriate response
 # The same thing for read meaning that i'm going to send you back the data that you want to read 
 # update or delete
+# The access token allows us to skip having to verify every single step as access token represents something to Firebase
+# That we can indeed make requests against in the database
