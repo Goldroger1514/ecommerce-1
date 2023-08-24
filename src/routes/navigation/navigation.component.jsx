@@ -8,7 +8,7 @@ let Navigation = () => {
             <div className='navigation'>
                 <div className='logo' >
                     <Link className='logo-container' to='/' >
-                        <CrwnLogo />
+                        <CrwnLogo className='logo' />
                     </Link>
                 </div>
                 <div className='nav-links-container'>
