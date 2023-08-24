@@ -31,8 +31,18 @@ let Home = () => {
     ]
     return (
         <div>
+<<<<<<< HEAD
             <Directory categories={categories} />
         </div>
     )
+=======
+            <Outlet />
+            <Directory categories={categories} />
+        </div>
+    )
+    /**
+     * the <Outlet /> component is used to indicate the location where the nested routes should be rendered within their parent route's component.
+     */
+>>>>>>> 408a514e46a7c4b37dc7306e949af918f5f0add1
 }
 export default Home
