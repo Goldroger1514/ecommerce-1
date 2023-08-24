@@ -1,5 +1,6 @@
 import Directory from '../../components/directory/directory.component'
 import { Outlet } from 'react-router-dom'
+import { Fragment } from 'react'
 let Home = () => {
     let categories = [
         {
@@ -30,9 +31,9 @@ let Home = () => {
         }
     ]
     return (
-        <div>
+        <Fragment>
             <Directory categories={categories} />
-        </div>
+        </Fragment>
     )
 }
 export default Home
