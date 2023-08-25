@@ -36,7 +36,7 @@
 # If it's true then it's going to say i have verified this token
 # If not it's just gonna send back an error
 # If valid , google sends back a verification token
-# Now because Firebase has authorized this token , it is then now going to create an access token
+# Now because Firebase has authorized this token , it is then now going to create an access token ###
 # This access token is going to define what the user should be able to access the user being specific
 # So this access tells us what me at nadimrifaii3@gmail.com is able to access inside of the database
 # Firebase sends back the access token to crown-clothing and now me as the user with this access token
@@ -51,3 +51,70 @@
 # update or delete
 # The access token allows us to skip having to verify every single step as access token represents something to Firebase
 # That we can indeed make requests against in the database
+
+# The first thing that we want to think about is the fact that we are going to be interacting with an API
+# The API in this particular case is going to be Firebase
+
+# Utils folder going to contain utility files
+
+# We are going to make sure that whenver a user authenticate we also create a record of them inside of firestore (our database)
+
+
+# Firestore structure (data model):
+# Inside Firestore is comprising data of three things 
+# 1- Collection
+# 2- Document
+# 3- Data
+# This visual is very good because it's kind of like looking abouta folder inside of a folder you migh have multiple documents 
+# on each document the data related to that document is what's written on that document
+# So we can imagine that if we had a collection of users
+# We would make seperate folder with users on it
+# So that we know that inside of that folder it's all of our data related to every instance of user that is inside of our database
+# Each seperate document represents an individual piece of data , so an independant user
+# Now the actual information related to that user is going to be the data
+
+# Document: is the smallest units inside of firestore
+# Imagin we had a shoe with a unique id of NikeAirMax
+# This NikeAirMax inside will have data that tells you what the information regrading this shoe will be
+# It's a JSON object that kind of holds the info that is relevant to shoes
+{
+    NikeAirMax:{
+        name:"Air Max",
+        "brand":"Nike",
+        "imageUrl":"www.imageUrl.com",
+        "cost":{
+            "price":150,
+            "currencty":"USD"
+        }
+    }
+}
+# Documents are pretty much JSON objects , NikeAirMax is a document and inside of it are the data
+
+# Collections:
+shoes:{
+    NikeAirMax:{
+        name:"Air Max",
+        "brand":"Nike",
+        "imageUrl":"www.imageUrl.com",
+        "cost":{
+            "price":150,
+            "currencty":"USD"
+        }
+    },
+    AdidasNMD:{
+        name:"NMD",
+        "brand":"Adidas",
+        "imageUrl":"www.imageUrl.com",
+        "cost":{
+            "price":250,
+            "currencty":"USD"
+        }
+    },
+}
+# Here we had a shoes collection , inside of that shoes collection we migh have our NikeAirMax which is a document of a shoes living inside our shoes collection
+###
+# shoes is the collection
+# NikeAirMax and AdidasNMD those are unique strings that represent the ID of these individual seperate documents
+# And then the values inside are the data respective for those documents
+###
+# Any data we're gonna store inside of Firebase is going to geenrally fit inside this model of collections,documents , their respective data
