@@ -22,6 +22,4 @@ export let auth = getAuth()
 export let signInWithGooglePopup = () => {
     return signInWithPopup(auth, provider)
 }
-//reverting back to old version
-//Reverting back to older version
-
+//Starting users doc
