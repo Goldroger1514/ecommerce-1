@@ -22,21 +22,6 @@ export let auth = getAuth()
 export let signInWithGooglePopup = () => {
     return signInWithPopup(auth, provider)
 }
-/**
- * doc method is what we need to actually get a document instance
- * getDoc gets the data inside the document
- * setDoc sets the data inside the document
- */
-// We need to create the db
-let db = getFireStore()
-// This now allows us now to tell Firebase when we want to get a document or we want set a document or anything like that related to our database
-// It directly points to our database inside of the consol
-export let createUserDocumentFromAuth = async (userAuth) => {
-    // first we need to see if there is an existing document reference
-    let userDocRef = doc(db, 'users', userAuth.uid)//db , collection , identifier(key|id)
-    /**
-     * What's interesting about google Firestor is that even though right now , we don't have a users collection in our database
-     * But Google will still generate this object
-     */
-    console.log(userDocRef)
-}
+//reverting back to old version
+//Reverting back to older version
+
