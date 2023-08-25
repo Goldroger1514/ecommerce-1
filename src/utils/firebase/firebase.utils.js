@@ -77,3 +77,4 @@ export let createUserDocumentFromAuth = async (userAuth) => {
     // if user data doesn't exist
 
 }
+//Start sign in with redirect
