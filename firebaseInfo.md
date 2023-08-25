@@ -118,3 +118,5 @@ shoes:{
 # And then the values inside are the data respective for those documents
 ###
 # Any data we're gonna store inside of Firebase is going to geenrally fit inside this model of collections,documents , their respective data
+
+# starting users document
