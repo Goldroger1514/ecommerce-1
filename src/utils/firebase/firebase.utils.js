@@ -3,6 +3,7 @@ import { getFireStore, doc, getDoc, setDoc } from 'firebase/firestore'
 // Your web app's Firebase configuration
 import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 const firebaseConfig = {
+    xx: 1,
     apiKey: "AIzaSyBPMcx8TlZryYLVn-dZBXyGSl9LaQv9L1c",
     authDomain: "crown-clothing-db-3d800.firebaseapp.com",
     projectId: "crown-clothing-db-3d800",
