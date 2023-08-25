@@ -1,8 +1,5 @@
 import { initializeApp } from 'firebase/app'
-/**
- * The intializeApp function creates an app instance for you based off of some type of config
- * This config is an object that allows us to attach this Firebase app instance to that instance that we have online
- */
+import { getFireStore, doc, getDoc, setDoc } from 'firebase/firestore'
 // Your web app's Firebase configuration
 import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 const firebaseConfig = {
@@ -16,16 +13,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firbaseApp = initializeApp(firebaseConfig);
-/**
- * We end up passing the firebaseConfig object to the intializeApp method
- * What this config does is it identifies this SDK
- * Which is essentially a developer kit that we're using 
- * So the library itself , this library is just some JavaScript library that abstracts away some of the functionality what we need to use in order to
- * interact with our instance of firebase
- * So those CRUD operations are going to happen using this firbase app instance
- * fireBase app takes the firebaseConfig which tells him that this is the specific crown-clothing-db instance which is the firebase instance that we made
- * 
- */
 let provider = new GoogleAuthProvider()//gives back provider instance
 provider.setCustomParameters({
     prompt: 'select_account',//what this means that everytime someone interacts with our provider, we want to awlays force them to select an account
@@ -33,4 +20,22 @@ provider.setCustomParameters({
 export let auth = getAuth()
 export let signInWithGooglePopup = () => {
     return signInWithPopup(auth, provider)
+}
+/**
+ * doc method is what we need to actually get a document instance
+ * getDoc gets the data inside the document
+ * setDoc sets the data inside the document
+ */
+// We need to create the db
+let db = getFireStore()
+// This now allows us now to tell Firebase when we want to get a document or we want set a document or anything like that related to our database
+// It directly points to our database inside of the consol
+export let createUserDocumentFromAuth = async (userAuth) => {
+    // first we need to see if there is an existing document reference
+    let userDocRef = doc(db, 'users', userAuth.uid)//db , collection , identifier(key|id)
+    /**
+     * What's interesting about google Firestor is that even though right now , we don't have a users collection in our database
+     * But Google will still generate this object
+     */
+    console.log(userDocRef)
 }
