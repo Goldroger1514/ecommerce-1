@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, FacebookAuthProvider } from 'firebase/auth'
 const firebaseConfig = {
     xx: 1,
     apiKey: "AIzaSyBPMcx8TlZryYLVn-dZBXyGSl9LaQv9L1c",
@@ -30,7 +30,7 @@ export let signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvi
  * with signInWithGooglePopup , i know that this pop up is going to be google because the provider i'm generating for it is Google provider
  */
 let db = getFirestore()
-export let createUserDocumentFromAuth = async (userAuth) => {
+export let createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
     let userDocRef = doc(db, 'users', userAuth.uid)
     console.log(userDocRef)
     let userSnapshot = await getDoc(userDocRef)
@@ -41,7 +41,8 @@ export let createUserDocumentFromAuth = async (userAuth) => {
             await setDoc(userDocRef, {
                 displayName,
                 email,
-                createdAt
+                createdAt,
+                ...additionalInfo
             })
         } catch (error) {
             console.log('Error while creating the user ' + error)
@@ -50,4 +51,13 @@ export let createUserDocumentFromAuth = async (userAuth) => {
         return userDocRef
     }
 }
-
+export let signInAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password)
+        return
+    return await signInWithEmailAndPassword(auth, email, password)
+}
+export let createAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password)
+        return
+    return await createUserWithEmailAndPassword(auth, email, password)//native provider
+}
