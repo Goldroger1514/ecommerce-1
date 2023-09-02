@@ -32,7 +32,7 @@ export let signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvi
 let db = getFirestore()
 export let createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
     let userDocRef = doc(db, 'users', userAuth.uid)
-    console.log(userDocRef)
+    //console.log(userDocRef)
     let userSnapshot = await getDoc(userDocRef)
     if (!userSnapshot.exists()) {
         let { displayName, email } = userAuth

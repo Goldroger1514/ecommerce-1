@@ -3,23 +3,16 @@ import { createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword,
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
 import '../sign-up-form/sign-up-form.styles.scss'
+import { useContext } from 'react'
+import { UserContext } from '../../contexts/user-context.component.jsx'
 let defaultFormFields = {
   email: '',
   password: '',
 }
 let SignInForm = () => {
-  let signInWithGoogle = async () => {
-    console.log('Clicked')
-    try {
-      let response = await signInWithGooglePopup()
-      let userDocRef = await createUserDocumentFromAuth(response.user)
-    } catch (error) {
-      console.log(error)
-    }
-    // console.log(userDocRef)
-  }
   let [formFields, setFormFields] = useState(defaultFormFields)
   let { email, password } = formFields
+  let { setCurrentUser } = useContext(UserContext)// returns the value object
   let handleChange = (event) => {
     let { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
@@ -32,6 +25,7 @@ let SignInForm = () => {
         email: '',
         password: ""
       })
+      setCurrentUser(response.user)
     } catch (error) {
       console.log(error.code)
       if (error.code == 'auth/wrong-password')
@@ -40,6 +34,17 @@ let SignInForm = () => {
         alert('User not found')
       }
     }
+  }
+  let signInWithGoogle = async () => {
+    console.log('Clicked')
+    try {
+      let response = await signInWithGooglePopup()
+      let userDocRef = await createUserDocumentFromAuth(response.user)
+      setCurrentUser(response.user)
+    } catch (error) {
+      console.log(error)
+    }
+    // console.log(userDocRef)
   }
   return (
     <div className='sign-in-container'>
