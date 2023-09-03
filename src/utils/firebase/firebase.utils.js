@@ -1,6 +1,11 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, FacebookAuthProvider, signOut } from 'firebase/auth'
+/**
+ * An observable listener is a way for us to hook into some kind of stream of events
+ * Whether these events are sign in events or sign out events were actually able to trigger something based on these changes
+ */
+import { onAuthStateChanged } from 'firebase/auth';//returns a listener
 const firebaseConfig = {
     xx: 1,
     apiKey: "AIzaSyBPMcx8TlZryYLVn-dZBXyGSl9LaQv9L1c",
@@ -18,6 +23,10 @@ googleProvider.setCustomParameters({
     prompt: 'select_account',
 })
 export let auth = getAuth()
+/**
+ * the auth object is keeping track of whether or not the user has signed in or sign out using the different sign in and sign out methods that we have been calling
+ * And it persists this between refreshes
+ */
 export let signInWithGooglePopup = () => {
     return signInWithPopup(auth, googleProvider)
 }
@@ -63,3 +72,10 @@ export let createAuthUserWithEmailAndPassword = async (email, password) => {
 }
 export let signOutUser = async () => await signOut(auth)
 // the auth is also keeping track of what users are signed in right now ... ...
+export let onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback)
+/**
+ * What this observer does is it returns you back whatever you get back from onAuthStateChange
+ */
+/**
+ * Every time this auth state change, call the callback function
+ */

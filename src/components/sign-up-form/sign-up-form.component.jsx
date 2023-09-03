@@ -15,7 +15,6 @@ let SignUpForm = () => {
   let [formFields, setFormFields] = useState(defaultFormFields)
   let { displayName, email, password, confirmPassword } = formFields
   let { setCurrentUser } = useContext(UserContext)
-  console.log('Hit')
   let handleChange = (event) => {
     let { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
@@ -35,7 +34,6 @@ let SignUpForm = () => {
         password: '',
         confirmPassword: ''
       })
-      setCurrentUser(response.user)
     } catch (error) {
       if (error.code == 'auth/email-already-in-use')
         alert('Email already in use')

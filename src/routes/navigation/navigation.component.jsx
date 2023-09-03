@@ -11,7 +11,7 @@ let Navigation = () => {
         // let result = await signOutUser()
         // console.log(result)//undefined
         await signOutUser()
-        setCurrentUser(null)
+        // setCurrentUser(null)
     }
     return (
         <Fragment >

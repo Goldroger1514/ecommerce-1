@@ -20,12 +20,10 @@ let SignInForm = () => {
   let handleSubmit = async (event) => {
     try {
       let response = await signInAuthUserWithEmailAndPassword(email, password)
-      console.log(response)
       setFormFields({
         email: '',
         password: ""
       })
-      setCurrentUser(response.user)
     } catch (error) {
       console.log(error.code)
       if (error.code == 'auth/wrong-password')
@@ -36,15 +34,11 @@ let SignInForm = () => {
     }
   }
   let signInWithGoogle = async () => {
-    console.log('Clicked')
     try {
-      let response = await signInWithGooglePopup()
-      let userDocRef = await createUserDocumentFromAuth(response.user)
-      setCurrentUser(response.user)
+      await signInWithGooglePopup()
     } catch (error) {
       console.log(error)
     }
-    // console.log(userDocRef)
   }
   return (
     <div className='sign-in-container'>
