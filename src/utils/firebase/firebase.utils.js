@@ -62,4 +62,4 @@ export let createAuthUserWithEmailAndPassword = async (email, password) => {
     return await createUserWithEmailAndPassword(auth, email, password)//native provider
 }
 export let signOutUser = async () => await signOut(auth)
-// the auth is also keeping track of what users are signed in right now
+// the auth is also keeping track of what users are signed in right now ...
