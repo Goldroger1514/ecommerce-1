@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, FacebookAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, FacebookAuthProvider, signOut } from 'firebase/auth'
 const firebaseConfig = {
     xx: 1,
     apiKey: "AIzaSyBPMcx8TlZryYLVn-dZBXyGSl9LaQv9L1c",
@@ -61,3 +61,5 @@ export let createAuthUserWithEmailAndPassword = async (email, password) => {
         return
     return await createUserWithEmailAndPassword(auth, email, password)//native provider
 }
+export let signOutUser = async () => await signOut(auth)
+// the auth is also keeping track of what users are signed in right now
