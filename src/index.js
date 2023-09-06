@@ -5,12 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './contexts/user-context.component.jsx';
+import { ProductProvider } from './contexts/products.context';
+import { CartProvider } from './contexts/cart.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <UserProvider>
-      <App />
-    </UserProvider>
+    <ProductProvider>
+      <UserProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </UserProvider>
+    </ProductProvider>
   </BrowserRouter>
   /**
    * Any component inside of this user provider nested deep within the app can access the context value inside of the provider

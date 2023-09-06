@@ -4,4 +4,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
+
+    .nav-links-container {
+        display: flex;
+        align-items: center;
+    }
 }
