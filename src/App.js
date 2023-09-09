@@ -8,8 +8,8 @@ let App = () => {
     <Routes>
       {/* <Route path='/home' element={<Home />} />
       <Route path='/shop' element={<Shop />} /> */}
-      <Route path='/home' element={<Home />} >
-        <Route path='/home/shop' element={<Shop />} />
+      <Route path='/' element={<Home />} >
+        <Route path='/shop' element={<Shop />} />
       </Route>
     </Routes>
   )
