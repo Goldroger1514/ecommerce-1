@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, FacebookAuthProvider, signOut } from 'firebase/auth'
 import { collection, writeBatch } from 'firebase/firestore';
+import { query, getDocs } from 'firebase/firestore'
 const firebaseConfig = {
     xx: 1,
     apiKey: "AIzaSyBPMcx8TlZryYLVn-dZBXyGSl9LaQv9L1c",
@@ -95,5 +96,44 @@ export let addCollectionDocuments = async (collectionKey, objectsToAdd) => {
      */
     /**
      * A batch is what we get from that writeBatch method 
+     * What batch allows me to do is attach a bunch of different (writes,deletes,sets) whatever
+     * We can attach all of these to the batch, and only when we're ready to fire off the batch does the actual transaction begins
+     * 
+     * So what we need to do is create a bunch of set methods or set events
+     * Because each object of the objectsToAdd were saying that i want you to create and set that object into this collectionRef as a new document for me
      */
+    let batch = writeBatch(db)
+    objectsToAdd.forEach(object => {
+        /**
+         * the collectionRef actually tells this doc method which database were using
+         * because we've got the collectionRef from calling collection where the db is passed
+         * So the doc method is smart enough to know you're giving me a collectionRef, most likely you got it because you've already told that collectionRef what db it's from
+         */
+        let docRef = doc(collectionRef, object.title.toLowerCase())
+        batch.set(docRef, object)
+        /**
+         * firebase will give us back a document reference event if it doesn't exist yet 
+         * It will just point to that place for this specific key inside of our collectionRef
+         * set that location with the value as the object itself
+         */
+    })
+    await batch.commit()
+}
+export let getCategoriesAndDocuments = async () => {
+    let collectionRef = collection(db, 'categories')
+    let q = query(collectionRef)
+    let querySnapShot = getDocs(q)
+    /**
+     * Fetch those documents snapshots that we want 
+     */
+    let categoryMap = (await querySnapShot).docs.reduce((acc, docSnapShot) => {
+        let { title, items } = docSnapShot.data()
+        acc[title.toLowerCase()] = items
+        return acc
+    }, {})
+    /**
+     * Will give us an array of all of those individual documents indie
+     * and the snapshots are the actual data themself
+     */
+    return categoryMap
 }
