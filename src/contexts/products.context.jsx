@@ -1,11 +1,11 @@
 import { createContext, useState } from "react"
-import PRODUCTS from '../112 - shop-data.json'
+import PRODUCTS from "../127 - shop-data"
 export let ProductContext = createContext({
   products: [],
-  setProducts: () => null
+  setProducts: () => null,
 })
 export let ProductProvider = ({ children }) => {
-  let [products, setProducts] = useState(PRODUCTS)
+  let [products, setProducts] = useState([])
   let value = { products }
   return <ProductContext.Provider value={value} >{children}</ProductContext.Provider>
 }
