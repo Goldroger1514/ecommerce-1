@@ -9,7 +9,7 @@ import { ProductProvider } from './contexts/products.context';
 import { CartProvider } from './contexts/cart.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename='/ecommerce-1'>
     <ProductProvider>
       <UserProvider>
         <CartProvider>
