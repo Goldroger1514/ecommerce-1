@@ -16,4 +16,4 @@ export let ProductProvider = ({ children }) => {
   }, [])
   let value = { products }
   return <ProductContext.Provider value={value} >{children}</ProductContext.Provider>
-}
+};
