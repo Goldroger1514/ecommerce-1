@@ -83,7 +83,7 @@ export let CartProvider = ({ children }) => {
     setCartCount(newCount)
   }, [cartItems])
   useEffect(() => {
-    calculateTotal(cartItems);
+    calculateTotal(cartItems)
   }, [cartItems])
   let value = { isCartOpen, total, increaseDecrease, setIsCartOpen, removeItem, addItemToCart, cartItems, cartCount }
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

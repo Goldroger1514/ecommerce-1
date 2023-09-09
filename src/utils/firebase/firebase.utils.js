@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, FacebookAuthProvider, signOut } from 'firebase/auth'
+import { collection, writeBatch } from 'firebase/firestore';
 const firebaseConfig = {
     xx: 1,
     apiKey: "AIzaSyBPMcx8TlZryYLVn-dZBXyGSl9LaQv9L1c",
@@ -63,3 +64,36 @@ export let createAuthUserWithEmailAndPassword = async (email, password) => {
 }
 export let signOutUser = async () => await signOut(auth)
 // the auth is also keeping track of what users are signed in right now ...
+
+/**
+ * The collection methods will allow us the same way when we were getting a document reference to get a collection reference
+ * because we're trying to write to a new collection
+ */
+export let addCollectionDocuments = async (collectionKey, objectsToAdd) => {
+    /**
+     * As we learned with user document references ,as long as we try and find something in the database
+     * Firebase is actually going to create on for us even if it's not populated
+     * Because that's what the document references , now in our particular case now we're making a collection reference
+     */
+    let collectionRef = collection(db, collectionKey)
+    /**
+     * Yihua:1000$ => 900
+     * -100
+     * 
+     * 
+     * Andrei:1000$ => 1100$
+     * +100
+     * 
+     * # These are two different writes , which means both of these writes have to go through in order for the transaction of me transfering 100$
+     * This is considered as one unit of work , even though there are two seperate write events happening (-100 , +100)
+     * Successful transaction
+     * 
+     * Two instances in the bank
+     * 
+     * Let's say i wanted to transfer 100$ from my bank account into andre's bank account
+     * What needs to happen on the database is that this database needs to see -100 on 1000$(Yihua)
+     */
+    /**
+     * A batch is what we get from that writeBatch method 
+     */
+}
