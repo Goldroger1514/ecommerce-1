@@ -7,6 +7,7 @@ import Checkout from './routes/checkout/checkout.component'
 let App = () => {
   return (
     <Routes>
+      <h1>Hello World</h1>
       <Route path='/' element={<Navigation />}>
         <Route index={true} element={<Home />} />
         <Route path='/shop' element={<Shop />} />
