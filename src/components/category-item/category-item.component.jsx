@@ -2,7 +2,7 @@ import './category-item.styles.scss'
 let CategoryItem = ({ category }) => {
     // let { category } = props
     return (
-        <div className='category-container' >
+        <div className='category-container-h' >
             {/* <img src={`${category.imageUrl}`} /> */}
             <div className='background-image'
                 style={{
