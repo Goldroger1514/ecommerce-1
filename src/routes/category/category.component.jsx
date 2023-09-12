@@ -27,3 +27,4 @@ let Category = () => {
   )
 }
 export default Category
+//Starting styled components

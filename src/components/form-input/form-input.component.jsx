@@ -1,14 +1,14 @@
 import { Fragment } from 'react'
-import './form-input.styles.scss'
+import { FormInputLabel, Input, Group } from './form-input.styles'
 let FormInput = ({ label, ...otherProps }) => {
   return (
-    <div className='group' >
-      <input
+    <Group >
+      <Input
         className={`${otherProps.value.length > 0 ? 'color' : ''} form-input`}
         {...otherProps}
       />
-      {(label && <label className={`${otherProps.value.length > 0 ? 'shrink' : ''} form-input-label`} >{label}</label>)}
-    </div>
+      {(label && <FormInputLabel shrink={otherProps.value.length} className={`form-input-label`} >{label}</FormInputLabel>)}
+    </Group>
   )
 }
 export default FormInput
