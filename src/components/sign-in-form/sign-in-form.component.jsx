@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInWithGooglePopup } from '../../utils/firebase/firebase.utils'
 import FormInput from '../form-input/form-input.component'
-import Button from '../button/button.component'
+import Button, { BUTTON_TYPES_CLASSES } from '../button/button.component'
 import '../sign-up-form/sign-up-form.styles.scss'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/user-context.component.jsx'
@@ -70,7 +70,7 @@ let SignInForm = () => {
           required />
         <div className='buttons-container' >
           <Button buttonOptions={{ type: 'submit' }}>Sign In</Button>
-          <Button clickHandler={signInWithGoogle} buttonType='google' buttonOptions={{ type: 'button' }}>Google Sign in</Button>
+          <Button clickHandler={signInWithGoogle} buttonType={BUTTON_TYPES_CLASSES.google} buttonOptions={{ type: 'button' }}>Google Sign in</Button>
         </div>
       </form>
     </div>

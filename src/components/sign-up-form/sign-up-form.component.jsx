@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
 import './sign-up-form.styles.scss'
 import FormInput from '../form-input/form-input.component'
-import Button from '../button/button.component'
+import Button, { BUTTON_TYPES_CLASSES } from '../button/button.component'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/user-context.component'
 let defaultFormFields = {
@@ -15,7 +15,6 @@ let SignUpForm = () => {
   let [formFields, setFormFields] = useState(defaultFormFields)
   let { displayName, email, password, confirmPassword } = formFields
   let { setCurrentUser } = useContext(UserContext)
-  console.log('Hit')
   let handleChange = (event) => {
     let { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
@@ -77,10 +76,9 @@ let SignUpForm = () => {
           value={confirmPassword}
           name='confirmPassword'
           required />
-        <Button buttonOptions={{ type: 'submit' }}>Sign Up</Button>
+        <Button buttonType={BUTTON_TYPES_CLASSES.base} >Sign Up</Button>
       </form>
     </div>
   )
 }
 export default SignUpForm
-//hsdkfsdfsdf
