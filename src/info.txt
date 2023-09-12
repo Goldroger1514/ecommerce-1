@@ -1,0 +1,23 @@
+Netlify is a platform that focuses on getting front end modern applications up as easy as possible
+They've really taken the world by storm in the last two , three years and they're only continuing to grow
+
+So this is a really stable great service to use for hosting our applications And we get great things like 
+
+Continuous integration right out of the box
+
+1- Import from Git {
+  What this allows us to do is directly choose the GitHub account that we have that we want to host our application through
+
+  The great thing about this is because whenever you make a push to GitHub , to the specific branch that you want to deploy
+  it will automatically rebuild on Netlify
+  Meaning that your website is always up to date to a specific branch that you have , that you want to be your live website
+
+  The build command is the command inside of our package JSON that builds and serves the final packet of our website after it's been 
+  minified and amplified and all that stuff
+
+  Modification and uglification is the process where we convert our fancy readable code into a less readable but much more optimized code
+  And it's handled all by webpack (npm run build)
+
+  What's happening behind the scenes right now is that netlify is running our create react app build script to build out the final folder that is going to actually
+  use to host our website
+}
