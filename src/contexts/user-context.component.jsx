@@ -1,82 +1,76 @@
-/**
- * the context is very similiar to a component that wraps around all of your other components that needs access to 
- * this context
- * We can kind of see it as a storage place , except it's a component that exclusively store things 
- */
-import { createContext, useState } from "react"
-/**
- * We can see the context as being of two pieces
- * One is actual storage thing itself and this is the literal context , so for us because it's a user context , we're going to call it UserContext
- */
-// as the actual value we want to access
+import { createContext, useState, useReducer } from "react"
+import { createAction } from "../utils/reducer/reduer.utils"
 export let UserContext = createContext({
   currentUser: null,
   setCurrentUser: () => null
-})//builds a context for us (default value is an object)
-
-//povider
-/**
- * A provider is the actual component
+})
+export let USER_ACTION_TYPES = {
+  'SET_CURRENT_USER': 'SET_CURRENT_USER'
+}
+let userReducer = (currentState, action) => {
+  /**
+ * In this function, currentState is the current state of your user-related context data, which is provided 
+ * by the useReducer hook when you call it with the userReducer function.
+ *  The useReducer hook manages the state and passes the current state as the first argument to your reducer function 
+ * (userReducer in this case) whenever an action is dispatched.
  */
-export let UserProvider = ({ children }) => {
+  console.log('Dispatched')
+  console.log(action)
+  let { type, payload } = action
+  switch (type) {
+    case USER_ACTION_TYPES.SET_CURRENT_USER:
+      return {
+        ...currentState,
+        currentUser: payload
+      }
+      break;
+    case 'increment':
+      return {
+        value: currentState.value + 1
+      }
+      break;
+    default:
+      throw new Error('Unkown action type ' + type)
+      break;
+  }
+}
+let INITIAL_STATE = {
+  currentUser: null
   /**
-   * What we know is that we want to store a user object so 
-   */
-  let [currentUser, setCurrentUser] = useState(null)
-  /**
-   * As we rememeber , a component re renders whenever it's state updates or whenever it's props changes
-   * Here we can imagine that this useState value setter function was called this current user value updates
-   * That means that any component that is listening for current user should in turn update
-   * Meaning that it should re render
-   */
-  let value = { currentUser, setCurrentUser }
-  /**
-   * So essentially this provider is allowing any of its child components to access the values inside of its useState
-   * I want to be able to call this setter and get the value anywhere inside of the component tree that is nested within this actual provider value
-   * 
-   */
-  return <UserContext.Provider value={value} >{children}</UserContext.Provider>
-  /**
-   * So on every context that gets built for us , there is a dot provider and the dor provider is the component that will wrap around any other components
-   * that needs access to the values inside
+   * Initially, when you create the state using useReducer:
+    let [state, dispathFunction] = useReducer(userReducer, INITIAL_STATE)
+    state is initialized with the INITIAL_STATE object. This is the initial state of your context.
    */
 }
+export let UserProvider = ({ children }) => {
+  // let [currentUser, setCurrentUser] = useState(null)
+  let [state, dispatch] = useReducer(userReducer, INITIAL_STATE)//state object, dispatch function
+  let { currentUser } = state
+  let setCurrentUser = (user) => {
+    // dispathFunction({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user))
+    /**
+     * When you dispatch an action using dispathFunction:
+     * dispathFunction({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+     * The useReducer hook takes the current state (state), passes it to your userReducer function as currentState,
+     *  along with the action you dispatched ({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user }),
+     *  and then calls your reducer function (userReducer) with these arguments.
+     */
+  }
+  /**
+   * dispatch function whenever you call it , you pass it an action object
+   * So if we want this useReducer to receive an action , we call dispatch and dispatch will take that action and then pass it in to userReducer
+   */
+  console.log(currentUser)
+  let value = { currentUser, setCurrentUser }
+  return <UserContext.Provider value={value} >{children}</UserContext.Provider>
+}
 /**
- * <UserProvider>
- * <App/> => children
- * </UserProvider>
- */
-
-/**
- * createContext and Default Value:
-  In React, when you create a context using createContext, you provide a default value. This default value is
-  used when a component that consumes the context is rendered outside the scope of a Provider.
-  It serves as a fallback in case the component doesn't find a matching Provider higher up in the component tree.
-
-In your code:
-export let UserContext = createContext({
-  currentUser: null,
-  setCurrentUser: () => null
-});
-  This means that if a component uses UserContext.Consumer without being wrapped in a UserProvider,
-  it will have access to an object with default values of currentUser: null and setCurrentUser being a function that returns null.
-  This is useful to avoid crashes if a consumer is used without a provider.
- */
-/**
- * useState and UserProvider:
-In your UserProvider component, you are using the useState hook to manage the current user state:
-let [currentUser, setCurrentUser] = useState(null);
-This is the actual state that the UserProvider holds. The purpose of UserProvider is to wrap its children with a UserContext.Provider so
-  that components nested within it can access this state.
-
-Provider's value prop:
-The UserProvider uses the value prop of UserContext.Provider to pass down the state to its child components:
-
-return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
-This is how the state, which includes currentUser and setCurrentUser, is made available to any components that are descendants of the UserProvider.
-
-In summary, the default value provided in createContext acts as a fallback when a component consumes the context without being wrapped in
-  a provider.
-  On the other hand, the state managed by useState in UserProvider represents the actual data that will be shared among
-  components when they are wrapped within the UserProvider
+ * Reducers as code are very simple , they're pretty much a function that returns an object
+ * let userReducer=(currentState,action)=>{
+ * return{
+ *  currentUser:null
+ * }
+ * }
+ * - Reducers change the object that we get back and the properties and the values inside them based on the action
  */
