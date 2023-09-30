@@ -1,0 +1,103 @@
+# There's really only two main differences inside when it comes to redux vs context
+1- Accessibility
+2- Flow of data
+# Accessibility of the data
+          App
+ShopPreview      Cart
+
+We have three different contexts right now , also wrapping around the entire application 
+<UserContext>
+<CategoriesContext>
+<CartContext>
+<App>
+</CartContext>
+</CategoriesContext>
+</UserContext>
+These three contexts are wrapped around the entire application because any component can access values in these contexts 
+##################
+But in reality , this doesn't actually have to be the case with context
+- Context is kind of just like a component
+- We can wrap it around smaller portions of the application and only that part has access to that context
+- For example , only the Shop page really access to what's inside the CategoriesContext
+- As far as the components in the shop are concerned , they're only ones that actually call the useContext hook to reach into that context and pull out the valeus 
+- The components on the right side which is our cart might actually receive those products somehow through the products cards
+- But in reality , it dosn't actually itself reach into the CategoriesContext
+- so it does not actually need to be wrapped by the CategoriesContext
+- If you are a child of CategoriesContext , you will have access to the context
+- If you are a sibling of the CategoriesContext , or a parent of the CategoriesContext ,then you do not have access to that context 
+- If we try to access the context from a sibling or a parent of the CategoriesContext {
+  we will only get the initial Value inside of the CategoriesContext 
+  But that object never updates 
+  The hooking into all of the actual updates that happens is from the provider  
+  It all lives tangential to what the sibling has access to
+  So it's true that we may be able to derive the default value of the CategoriesContext
+  We cannot access any updated values from that provider
+}
+-----------------------------
+The difference between context and redux is that redux will always wrap the entire application 
+You have the same access to the Redux store , which is where all of our data is stored from the entire application
+-
+With redux , your application will always have access 
+This is by design because it's called global state management 
+The redux store itself is what handles the actual data
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+# flow of data
+- Contexts we can mainly see as being separated into two portions 
+We have UI components and then we have context with reducers
+
+These context reducers are of course the components that wrap the corresponding UI components
+
+So imagine we have three differente components in our app 
+component 1
+component 2
+component 3 
+
+And we have two different contexts 
+conetxt A 
+context B 
+
+Let's say that context A wraps around component one and two and contextB wraps around componentB
+<ContextA>
+  component 1
+  component 2
+</contextA>
+
+<ContextB>
+  component 3
+</contextB>
+
+Each one of these contexts also have their own reducer , which they're using for state management
+
+The flow of data is 
+1- The components drive actions into their reducers
+2- The reducers then drive their corresponding values to their components
+
+--------------
+With redux , we still have UI components , so let's imagine that we still have the same three components 1 2 3 
+But now we have the Redux store and the redux store structure is going to have three separate reducers 
+ReducerA
+ReducerB
+ReducerC
+These are still functions that returns objects , those objects just carry the state of that reducer
+The difference now is that we have three different reducers 
+- These three reducers all combine together into something known as the root reducer
+- The root reducer takes each of these and combines them into one giant reducer 
+- From this reducer , we will then pass state into component 1 , 2 ,3 
+- We pass the entire state object 
+- We don't just pass reducer A's value or reducer B's value 
+- We pass the entire state object through to component 1 2 3 
+- And then similarily, what will happen is that these components of course are going to dispatch actions 
+- But it's only one dispatch method 
+-----------------------
+Remember with context , each useReducer gives you a new dispatch function that goes specifically to the respective useReducer hook 
+- Here with redux we have one dispatch , one dispatch action
+- Essentially you're going to dispatch actions using the one dispatch and all of these reducers are going to receive those actions 
+- But what happens is that we have to determine in the corresponding reducer what to update 
+- So these actions may update reducer A, may update reducer B or update reducer C
+- Also the same action can update all three reducers at the same time if these three reducers choose to update based on that action 
+----------------------------------
+This is the diffferent flow of redux 
+
+The main thing to understand is that there is a much more singular store , so as a result there's a single dispatch
+- And then it's up to our individual reducers A,B,C to determine if they want to update their state
