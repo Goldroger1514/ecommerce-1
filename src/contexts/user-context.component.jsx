@@ -74,3 +74,6 @@ export let UserProvider = ({ children }) => {
  * }
  * - Reducers change the object that we get back and the properties and the values inside them based on the action
  */
+/**
+ * 
+ */
