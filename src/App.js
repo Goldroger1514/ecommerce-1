@@ -4,7 +4,14 @@ import Navigation from './routes/navigation/navigation.component'
 import Authentication from './routes/authentication/authentication.component'
 import Shop from './routes/shop/shop.component'
 import Checkout from './routes/checkout/checkout.component'
+import { setCurrentUser } from './store/user/user.action'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 let App = () => {
+  let dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setCurrentUser(null))
+  }, [])
   return (
     <Routes>
       <Route path='/' element={<Navigation />}>

@@ -7,17 +7,21 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './contexts/user-context.component.jsx';
 import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/cart.context';
+import { Provider } from 'react-redux';
+import { store } from './store/store'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename='/ecommerce-1'>
-    <CategoriesProvider>
-      <UserProvider>
+  <Provider store={store} >
+    <BrowserRouter basename='/ecommerce-1'>
+      <CategoriesProvider>
+        {/* <UserProvider> */}
         <CartProvider>
           <App />
         </CartProvider>
-      </UserProvider>
-    </CategoriesProvider>
-  </BrowserRouter>
+        {/* </UserProvider> */}
+      </CategoriesProvider>
+    </BrowserRouter>
+  </Provider>
   /**
    * Any component inside of this user provider nested deep within the app can access the context value inside of the provider
    * So the user provider is solely menat to tell us , oh inside of my component tree which components to my context

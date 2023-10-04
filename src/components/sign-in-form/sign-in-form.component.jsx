@@ -5,14 +5,17 @@ import Button, { BUTTON_TYPES_CLASSES } from '../button/button.component'
 import '../sign-up-form/sign-up-form.styles.scss'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/user-context.component.jsx'
+import { setCurrentUser } from '../../store/user/user.action'
+import { useDispatch } from 'react-redux'
 let defaultFormFields = {
   email: '',
   password: '',
 }
 let SignInForm = () => {
+  let dispatch = useDispatch()
   let [formFields, setFormFields] = useState(defaultFormFields)
   let { email, password } = formFields
-  let { setCurrentUser } = useContext(UserContext)// returns the value object
+  // let { setCurrentUser } = useContext(UserContext)// returns the value object
   let handleChange = (event) => {
     let { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
@@ -25,7 +28,6 @@ let SignInForm = () => {
         email: '',
         password: ""
       })
-      setCurrentUser(response.user)
     } catch (error) {
       console.log(error.code)
       if (error.code == 'auth/wrong-password')
@@ -40,7 +42,7 @@ let SignInForm = () => {
     try {
       let response = await signInWithGooglePopup()
       let userDocRef = await createUserDocumentFromAuth(response.user)
-      setCurrentUser(response.user)
+      dispatch(setCurrentUser(response.user))
     } catch (error) {
       console.log(error)
     }

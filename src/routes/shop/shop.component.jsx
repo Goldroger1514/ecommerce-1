@@ -3,11 +3,23 @@ import './shop.styles.scss'
 import { Routes, Route } from 'react-router-dom'
 import CategoriesPreview from '../categories-preview/categories-preview.component'
 import Category from '../category/category.component'
+import { useEffect } from 'react'
+import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils'
+import { setCategoriesMap } from '../../store/categories/category.action'
+import { useDispatch } from 'react-redux'
 /**
  *  react automatically going to import the entire JSON file and 
  *  then store in this SHOP_DATA
  */
 let Shop = () => {
+  let dispatch = useDispatch()
+  useEffect(() => {
+    let getCategoriesMap = async () => {
+      let categoryMap = await getCategoriesAndDocuments()
+      dispatch(setCategoriesMap(categoryMap))
+    }
+    getCategoriesMap()
+  }, [])
   return (
     <Routes>
       <Route index={true} element={<CategoriesPreview />} />

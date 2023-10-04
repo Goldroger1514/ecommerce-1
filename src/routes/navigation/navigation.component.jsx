@@ -8,14 +8,25 @@ import CardIcon from '../../components/cart-icon/card-icon.component'
 import CartDropdown from '../../components/cart-drop-down/cart-dropdown.component'
 import { CartContext } from '../../contexts/cart.context'
 import { NavigationContainer, LogoContainer, NavLink, NavLinksContainer } from './navigation.styles'
+import { useSelector } from 'react-redux'
+import { setCurrentUser } from '../../store/user/user.action'
+import { useDispatch } from 'react-redux'
+/**
+ * useSelector is a hook that allows us to interact from a component with the redux store
+ */
 let Navigation = () => {
-    let { currentUser, setCurrentUser } = useContext(UserContext)
+    let dispatch = useDispatch()
+    // let { currentUser, setCurrentUser } = useContext(UserContext)
+    let currentUser = useSelector((state) => {
+        return state.user.currentUser
+        //our selector updates whenever the state object changes
+    })
     let { isCartOpen } = useContext(CartContext)
     let signOutHandler = async () => {
         // let result = await signOutUser()
         // console.log(result)//undefined
         await signOutUser()
-        setCurrentUser(null)
+        dispatch(setCurrentUser(null))
     }
     return (
         <Fragment >

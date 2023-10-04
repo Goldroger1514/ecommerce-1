@@ -1,0 +1,1 @@
+export let selectCategoriesMap = (state) => state.categories.categoriesMap
